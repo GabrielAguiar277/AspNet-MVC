@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+    string especialidade(int i)
+    {
+        switch (i)
+        {
+            case 1:
+                return "Comércio";
+                break;
+            case 2:
+                return "Serviço";
+                break;
+            case 3:
+                return "Indústria";
+                break;
+        }
+
+        return "";
+    }
+
+
+}
+
+@model List<DivTech.Models.FornecedorModel>
+
+<div class="">
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Fornecedores</h3>
+
+        <a class="btn btn-dark" asp-area="" asp-controller="Fornecedor" asp-action="Add">
+                Adicionar Fornecedor
+        </a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fornecedor</th>
+                <th>CNPJ</th>
+                <th>Especialidade</th>
+                <th>CEP</th>
+                <th>Endereço</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var fornecedor in Model)
+            {
+                <tr>
+                    <td class="">@fornecedor.Nome</td>
+                    <td>@fornecedor.CNPJ</td>
+                    <td>@especialidade(fornecedor.Especialidade)</td>
+                    <td>@fornecedor.CEP</td>
+                    <td>@fornecedor.Endereco</td>
+                    <td>
+                        <div class="h-100 w-100 d-flex justify-content-end gap-1">
+                            <a 
+                                href="Fornecedor/Edit/@fornecedor.Id"
+                                style="height: 30px; width: 30px;" 
+                                role="button" 
+                                class="btn btn-primary d-flex align-items-center justify-content-center"
+                            >
+                                <img style="transform: scale(3);" src="Img/pen.svg">
+                            </a>
+                            
+                            <a href="Fornecedor/Delete/@fornecedor.Id"
+                               style="height: 30px; width: 30px;" 
+                                role="button"       
+                                class="btn btn-danger d-flex align-items-center justify-content-center"
+                            >
+                                <img style="transform: scale(3);" src="Img/trash.svg">
+                            </a>
+                         
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
